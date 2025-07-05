@@ -107,7 +107,7 @@ if st.button('🔍 Predict'):
 
 if st.button('📊 Show Distribution'):
     try:
-        df = pd.read_csv('spam.csv', encoding='latin-1')
+        df = pd.read_csv('spam22.csv', encoding='latin-1')
         fig, ax = plt.subplots()
         df['v1'].value_counts().plot(kind='pie', autopct='%1.1f%%', 
                                     colors=['#2d6a4f','#ff4d6d'], ax=ax)
