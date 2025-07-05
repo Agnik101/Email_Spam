@@ -35,7 +35,7 @@ st.markdown("""
 }
 .team-member {
     background-color:#FFFFE0
-    padding: 0.2rem;
+    padding: 0.8rem;
     margin-bottom: 0.5rem;
     border-radius: 5px;
 }
