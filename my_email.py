@@ -61,7 +61,7 @@ SPAM_WORDS = [
     r'(?i)\bloan\b', r'(?i)\bmoney\b', r'(?i)\badult\s*dating\b',
     r'(?i)\bsexy\b', r'(?i)\bhot\s*singles\b', r'(?i)\bhot\b',
     r'(?i)\rape\b', r'(?i)\blottery\b',r'(?i)\free\b' , 
-    r'(?i)\subscribe\b' ,r'(?i)\rape\b
+    r'(?i)\subscribe\b' ,r'(?i)\rape\b'
 ]
 
 def detect_spam_words(text):
