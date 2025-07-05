@@ -33,7 +33,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Initialize NLTK
-nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 ps = PorterStemmer()
 
