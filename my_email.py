@@ -13,10 +13,12 @@ st.markdown("""
 <style>
 .stApp {
     background: linear-gradient(to bottom, #ffcccb, #ff4b4b);
+    font-family: 'Arial', sans-serif;
 }
 [data-testid="stSidebar"] {
     background-color: #ff4b4b;
-    padding: 1rem;
+    padding: 1.66rem;
+    color: white;
 }
 .highlight {
     background-color: #ff0000;
@@ -25,28 +27,41 @@ st.markdown("""
     border-radius: 3px;
     font-weight: bold;
 }
-.spam-word {
-    color: #ff0000;
-    font-weight: bold;
+.tip-box {
+    background-color:#FFFFE0 ;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+.team-member {
+    background-color:#FFFFE0
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # Initialize NLTK
-nltk.download('punkt_tab')
-nltk.download('stopwords')
+try:
+    nltk.download('punkt')
+    nltk.download('stopwords')
+except Exception as e:
+    st.error(f"Error downloading NLTK resources: {e}")
+
 ps = PorterStemmer()
 
-# Comprehensive list of spam words/phrases with pattern matching
+# Comprehensive list of spam words/phrases
 SPAM_WORDS = [
-    r'(?i)\bsex\b', r'(?i)\bfree\s*sex\b', r'(?i)\bgay\b', 
+    r'(?i)\bsex\b', r'(?i)\bfree\s*sex\b', r'(?i)\bgay\b',
     r'(?i)\bmotherfucker\b', r'(?i)\bfucker\b', r'(?i)\bdate\s*me\b',
-    r'(?i)\bviagra\b', r'(?i)\bporn\b', r'(?i)\bnude\b', 
+    r'(?i)\bviagra\b', r'(?i)\bporn\b', r'(?i)\bnude\b',
     r'(?i)\bhot\s*girls\b', r'(?i)\bsingle\s*now\b',
     r'(?i)\bmeet\s*girls\b', r'(?i)\bcasino\b', r'(?i)\bcredit\b',
     r'(?i)\bloan\b', r'(?i)\bclick\s*here\b', r'(?i)\bwinner\b',
     r'(?i)\bprize\b', r'(?i)\bmoney\b', r'(?i)\badult\s*dating\b',
-    r'(?i)\bsexy\b', r'(?i)\bhot\s*singles\b', r'(?i)\bhot\b',r'(?i)\blove\b',r'(?i)\blottery\b'
+    r'(?i)\bsexy\b', r'(?i)\bhot\s*singles\b', r'(?i)\bhot\b',
+    r'(?i)\blove\b', r'(?i)\blottery\b'
 ]
 
 def detect_spam_words(text):
@@ -73,81 +88,133 @@ def transform_text(text):
     text = [ps.stem(word) for word in text]
     return " ".join(text)
 
-# Load models
-try:
-    tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
-    model = pickle.load(open('model.pkl', 'rb'))
-except Exception as e:
-    st.error(f"Error loading model files: {e}")
-    st.stop()
+# Main app content
+def main():
 
-# Main app
-st.title("📧 Email Spam Classifier")
-input_email = st.text_area("Enter your email text:")
-
-if st.button('🔍 Predict'):
-    if not input_email.strip():
-        st.warning("Please enter some text to classify")
-    else:
-        # First check for spam words
-        highlighted_text, found_words = detect_spam_words(input_email)
-        
-        if found_words:
-            st.error("🚨 This is SPAM")
-            
-        else:
-            processed_text = transform_text(input_email)
-            vector = tfidf.transform([processed_text])
-            prediction = model.predict(vector)[0]
-            
-            if prediction == 1:
-                st.error("🚨 This is SPAM")
-            else:
-                st.success("✅ This is HAM (Not Spam)")
-
-if st.button('📊 Show Distribution'):
-    try:
-        df = pd.read_csv('spam22.csv', encoding='latin-1')
-        fig, ax = plt.subplots()
-        df['v1'].value_counts().plot(kind='pie', autopct='%1.1f%%', 
-                                    colors=['#2d6a4f','#ff4d6d'], ax=ax)
-        ax.set_ylabel('')
-        st.pyplot(fig)
-    except Exception as e:
-        st.error(f"Error showing distribution: {e}")
-
-# Red sidebar with expandable sections
-with st.sidebar:
-    # Team section
-    with st.expander("👥 Meet Our Team", expanded=False):
-        # Team members
-        team_members = [
-            {"name": "Agnik Gupta", "designation": "Data Scientist", "contribution": "FUCK OFF."},
-            {"name": "Arunava Ghosh", "designation": "Mistiwala", "contribution": "Implemented the CHOMCHOM with desimilk."},
-            {"name": "Souhardya Nandy", "designation": "Software Developer", "contribution": "Cowboy @ howtogetacheeck.com with 69years of exp"},
-            {"name": "Bitan Bannerjee", "designation": "Data Scientist", "contribution": "MF"},
-            {"name": "Debrik Debnath", "designation": "Project Manager", "contribution": "Likes thickk cheeks with footballs"}
-        
-        ]   
-
-        
-        for member in team_members:
-            with st.expander(member["name"], expanded=False):
-                st.write(f"**Designation:** {member['designation']}")
-                st.write(f"**Contribution:** {member['contribution']}")
-
-    # About section
-    with st.expander("ℹ️ About This App", expanded=False):
-        st.write("""
-        This email classifier uses:
-        - Natural Language Processing
-        - TF-IDF Vectorization
-        - Machine Learning (Naive Bayes)
-        - Trained on thousands of samples
-        """)
+    st.title("📧 Advanced Email Spam Classifier")
     
-    # Contact section
-    with st.expander("📨 Contact Us", expanded=False):
-        st.write("**Email:** support@example.com")  
-        st.write("**Phone:** +1 (555) 123-4567")
-        st.write("**Address:** 123 Data Street, AI City")
+
+    # Input area
+    input_email = st.text_area("Enter email text to analyze:", height=150)
+
+    if st.button('🔍 Analyze Email'):
+        if not input_email.strip():
+            st.warning("Please enter some text to analyze")
+        else:
+            # Check for spam words
+            highlighted_text, found_words = detect_spam_words(input_email)
+            
+            if found_words:
+                st.error("🚨 This is classified as SPAM by our ML model ")
+                with st.expander("View details", expanded=True):
+                    st.markdown("**Detected spam words:**")
+                    for word in found_words:
+                        st.markdown(f"- {word}")
+                    
+                    st.markdown(highlighted_text, unsafe_allow_html=True)
+            else:
+                # If no spam words, use ML model
+                try:
+                    tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
+                    model = pickle.load(open('model.pkl', 'rb'))
+                    
+                    processed_text = transform_text(input_email)
+                    vector = tfidf.transform([processed_text])
+                    prediction = model.predict(vector)[0]
+                    
+                    if prediction == 1:
+                        st.error("🚨 This is classified as SPAM by our ML model")
+                    else:
+                        st.success("✅ This is HAM (Not Spam)")
+                except Exception as e:
+                    st.error(f"Error during analysis: {e}")
+
+    # Visualization section
+    if st.button('📊 Show Spam/Ham Distribution'):
+        try:
+            df = pd.read_csv('spam22.csv', encoding='latin-1')
+            fig, ax = plt.subplots()
+            df['v1'].value_counts().plot(kind='pie', autopct='%1.1f%%', 
+                                        colors=['#2d6a4f','#ff4d6d'], ax=ax)
+            ax.set_ylabel('')
+            st.pyplot(fig)
+        except Exception as e:
+            st.error(f"Error showing distribution: {e}")
+
+# Sidebar content
+def sidebar_content():
+    with st.sidebar:
+        st.header("About This Tool")
+        
+        # Educational section about spam
+        with st.expander("ℹ️ Understanding Spam", expanded=True):
+            st.write("""
+            **Spam** refers to unsolicited messages, typically sent in bulk, that may contain:
+            - Commercial advertisements
+            - Fraudulent schemes
+            - Malicious links or attachments
+            - Inappropriate content
+            
+            Our classifier combines keyword detection and machine learning to identify these unwanted messages.
+            """)
+        
+        # Tips section
+        with st.expander("🛡️ Spam Prevention Tips"):
+            st.write("""
+            - ✅ **Use spam filters** provided by your email service
+            - ✅ **Never reply** to suspicious emails
+            - ✅ **Check sender addresses** carefully
+            - ✅ **Avoid clicking links** in unsolicited emails
+            - ✅ **Keep software updated** to prevent vulnerabilities
+            - ✅ **Report spam** to your email provider
+            """)
+        
+        # Team section
+        with st.expander("👥 Our Team"):
+            team_col1, team_col2 ,team_col3= st.columns(3)
+            
+            with team_col1:
+                st.markdown("""
+                **Agnik Gupta**  
+                *Data Scientist*  
+                Model development
+                """)
+                
+                st.markdown("""
+                **Arunava Ghosh**  
+                *Data Scientist*  
+                Algorithm optimization
+                """)
+                
+            with team_col2:
+                st.markdown("""
+                **Souhardya Nandy**  
+                *Developer*  
+                App interface
+                """)
+                
+                st.markdown("""
+                **Bitan Bannerjee**  
+                *Data Analyst*  
+                Data processing
+                """)
+
+            with team_col3:
+                st.markdown("""
+                **Debrik Debnath**  
+                *Developer*  
+                App interface
+                """)
+        
+        # Contact section
+        with st.expander("📨 Contact Us"):
+            st.write("""
+            **Email:** contact@spamfilter.com  
+            **Support:** 24/7 via help portal  
+            **HQ:** Data Security Tower, Tech City
+            """)
+
+# Run the app
+if __name__ == "__main__":
+    main()
+    sidebar_content()
