@@ -10,6 +10,7 @@ Original file is located at
 import numpy as np
 import pandas as pd
 import nltk
+import matplotlib
 
 df=pd.read_csv('spam22.csv', encoding= 'latin-1')
 
