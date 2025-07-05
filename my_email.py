@@ -58,7 +58,7 @@ SPAM_WORDS = [
     r'(?i)\bviagra\b', r'(?i)\bporn\b', r'(?i)\bnude\b',
     r'(?i)\bhot\s*girls\b', r'(?i)\bsingle\s*now\b',
     r'(?i)\bmeet\s*girls\b', r'(?i)\bcasino\b', r'(?i)\bcredit\b',
-    r'(?i)\bloan\b', r'(?i)\bclick\s*here\b', r'(?i)\bwinner\b',
+    r'(?i)\bloan\b', r'(?i)\bwinner\b',
     r'(?i)\bprize\b', r'(?i)\bmoney\b', r'(?i)\badult\s*dating\b',
     r'(?i)\bsexy\b', r'(?i)\bhot\s*singles\b', r'(?i)\bhot\b',
     r'(?i)\blove you\b', r'(?i)\blottery\b'
