@@ -44,7 +44,7 @@ st.markdown("""
 
 # Initialize NLTK
 try:
-    nltk.download('punkt')
+    nltk.download('punkt_tab')
     nltk.download('stopwords')
 except Exception as e:
     st.error(f"Error downloading NLTK resources: {e}")
