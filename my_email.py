@@ -46,7 +46,7 @@ SPAM_WORDS = [
     r'(?i)\bmeet\s*girls\b', r'(?i)\bcasino\b', r'(?i)\bcredit\b',
     r'(?i)\bloan\b', r'(?i)\bclick\s*here\b', r'(?i)\bwinner\b',
     r'(?i)\bprize\b', r'(?i)\bmoney\b', r'(?i)\badult\s*dating\b',
-    r'(?i)\bsexy\b', r'(?i)\bhot\s*singles\b', r'(?i)\bhot\b'
+    r'(?i)\bsexy\b', r'(?i)\bhot\s*singles\b', r'(?i)\bhot\b',r'(?i)\blove\b',r'(?i)\blottery\b'
 ]
 
 def detect_spam_words(text):
@@ -93,20 +93,15 @@ if st.button('🔍 Predict'):
         highlighted_text, found_words = detect_spam_words(input_email)
         
         if found_words:
-            st.error("🚨 This is SPAM (contains spam words)")
-            with st.expander("View details", expanded=True):
-                st.markdown("**Detected spam words:**")
-                for word in found_words:
-                    st.markdown(f"- <span class='spam-word'>{word}</span>", unsafe_allow_html=True)
-                st.markdown("**Text with highlighted spam words:**")
-                st.markdown(highlighted_text, unsafe_allow_html=True)
+            st.error("🚨 This is SPAM")
+            
         else:
             processed_text = transform_text(input_email)
             vector = tfidf.transform([processed_text])
             prediction = model.predict(vector)[0]
             
             if prediction == 1:
-                st.error("🚨 This is SPAM (ML model prediction)")
+                st.error("🚨 This is SPAM")
             else:
                 st.success("✅ This is HAM (Not Spam)")
 
@@ -121,19 +116,20 @@ if st.button('📊 Show Distribution'):
     except Exception as e:
         st.error(f"Error showing distribution: {e}")
 
-
-# Sidebar remains unchanged from working version
-
 # Red sidebar with expandable sections
 with st.sidebar:
     # Team section
     with st.expander("👥 Meet Our Team", expanded=False):
+        # Team members
         team_members = [
-            {"name": "Agnik Gupta", "designation": "Data Scientist", "contribution": "Developed the NLP model"},
-            {"name": "Arunava Ghosh", "designation": "ML Engineer", "contribution": "Optimized the algorithm"},
-            {"name": "Souhardya Nandy", "designation": "Developer", "contribution": "Built the interface"},
-            {"name": "Bitan Bannerjee", "designation": "Data Analyst", "contribution": "Refined the dataset"}
-        ]
+            {"name": "Agnik Gupta", "designation": "Data Scientist", "contribution": "FUCK OFF."},
+            {"name": "Arunava Ghosh", "designation": "Mistiwala", "contribution": "Implemented the CHOMCHOM with desimilk."},
+            {"name": "Souhardya Nandy", "designation": "Software Developer", "contribution": "Cowboy @ howtogetacheeck.com with 69years of exp"},
+            {"name": "Bitan Bannerjee", "designation": "Data Scientist", "contribution": "MF"},
+            {"name": "Debrik Debnath", "designation": "Project Manager", "contribution": "Likes thickk cheeks with footballs"}
+        
+        ]   
+
         
         for member in team_members:
             with st.expander(member["name"], expanded=False):
@@ -143,14 +139,15 @@ with st.sidebar:
     # About section
     with st.expander("ℹ️ About This App", expanded=False):
         st.write("""
-        Features:
-        - NLP Text Processing
-        - Spam Word Detection
-        - Naive Bayes Classification
-        - Visual Analytics
+        This email classifier uses:
+        - Natural Language Processing
+        - TF-IDF Vectorization
+        - Machine Learning (Naive Bayes)
+        - Trained on thousands of samples
         """)
     
     # Contact section
     with st.expander("📨 Contact Us", expanded=False):
-        st.write("**Email:** spam.filter@example.com")
-        st.write("**Support Hours:** 9AM-5PM EST")
+        st.write("**Email:** support@example.com")  
+        st.write("**Phone:** +1 (555) 123-4567")
+        st.write("**Address:** 123 Data Street, AI City")
