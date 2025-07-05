@@ -17,7 +17,7 @@ st.markdown("""
 }
 [data-testid="stSidebar"] {
     background-color: #ff4b4b;
-    padding: 1.7rem;
+    padding: 1.68rem;
     color: white;
 }
 .highlight {
