@@ -11,13 +11,14 @@ import re
 # Set app styling
 st.markdown("""
 <style>
+
 /* Style for the sidebar with increased width */
 [data-testid="stSidebar"] {
     background-color: #ff4b4b;
     padding: 1.5rem;
     color: white;
     width: 350px;  /* Increase the sidebar width */
-    min-width: 400px; /* Ensure it doesn't shrink too much */
+    min-width: 300px; /* Ensure it doesn't shrink too much */
     transition: all 0.3s ease;
 }
 
@@ -197,7 +198,7 @@ def sidebar_content():
         
         # Team section
         with st.expander("👥 Our Team"):
-            team_col1, team_col2 ,team_col3= st.columns(3)
+            team_col1, team_col2 = st.columns(2)
             
             with team_col1:
                 st.markdown("""
@@ -211,13 +212,14 @@ def sidebar_content():
                 *Data Scientist*  
                 Algorithm optimization
                 """)
-                
-            with team_col2:
                 st.markdown("""
                 **Souhardya Nandy**  
                 *Developer*  
                 App interface
                 """)
+                
+            with team_col2:
+                
                 
                 st.markdown("""
                 **Bitan Banerjee**  
@@ -225,7 +227,7 @@ def sidebar_content():
                 Data processing
                 """)
 
-            with team_col3:
+        
                 st.markdown("""
                 **Debrik Debnath**  
                 *Developer*  
