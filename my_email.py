@@ -38,7 +38,7 @@ st.markdown("""
 
 /* App background and font */
 .stApp {
-    background: linear-gradient(to bottom, #650021, #A24857);
+    background: linear-gradient(to bottom, #650021, #409C4E);
     font-family: 'Arial', sans-serif;
     transition: all 0.3s ease;
 }
