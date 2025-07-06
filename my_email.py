@@ -11,15 +11,34 @@ import re
 # Set app styling
 st.markdown("""
 <style>
-.stApp {
-    background: linear-gradient(to bottom, #ffcccb, #ff4b4b);
-    font-family: 'Arial', sans-serif;
-}
+/* Style for the sidebar */
 [data-testid="stSidebar"] {
     background-color: #ff4b4b;
     padding: 1.2rem;
     color: white;
+    transition: all 0.3s ease;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    [data-testid="stSidebar"] {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    .team-member {
+        margin-bottom: 0.3rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Add smooth transitions when resizing */
+.stApp {
+    background: linear-gradient(to bottom, #ffcccb, #ff4b4b);
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* Highlight spam words */
 .highlight {
     background-color: #ff0000;
     color: white;
@@ -27,14 +46,18 @@ st.markdown("""
     border-radius: 3px;
     font-weight: bold;
 }
+
+/* Tip boxes */
 .tip-box {
-    background-color:#FFFFE0 ;
+    background-color:#FFFFE0;
     padding: 1rem;
     border-radius: 10px;
     margin: 1rem 0;
 }
+
+/* Team member boxes (fix missing semicolon) */
 .team-member {
-    background-color:#FFFFE0
+    background-color:#FFFFE0;
     padding: 0.8rem;
     margin-bottom: 0.5rem;
     border-radius: 5px;
@@ -194,7 +217,7 @@ def sidebar_content():
                 """)
                 
                 st.markdown("""
-                **Bitan Bannerjee**  
+                **Bitan Banerjee**  
                 *Data Analyst*  
                 Data processing
                 """)
