@@ -17,7 +17,7 @@ st.markdown("""
     background-color: #ff4b4b;
     padding: 1.5rem;
     color: white;
-    width: 300px;  /* Increase the sidebar width */
+    width: 250px;  /* Increase the sidebar width */
     min-width: 300px; /* Ensure it doesn't shrink too much */
     transition: all 0.3s ease;
 }
