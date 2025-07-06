@@ -15,7 +15,7 @@ st.markdown("""
 /* Style for the sidebar with increased width */
 [data-testid="stSidebar"] {
 
-     background-color: linear-gradient(to bottom, #650021, #8a2b62);
+     background-color: #02590F;
     padding: 0.5rem;
     color: white;
     width: 250px;  /* Increase the sidebar width */
