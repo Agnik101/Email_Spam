@@ -120,6 +120,7 @@ def transform_text(text):
 def main():
 
     st.title("📧 Advanced Email Spam Classifier")
+    st.markdown("---")  # Simple divider 
     
 
     # Input area
