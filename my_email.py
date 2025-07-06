@@ -14,10 +14,10 @@ st.markdown("""
 
 /* Style for the sidebar with increased width */
 [data-testid="stSidebar"] {
-    background-color: #ff4b4b;
+    background-color: #C8ACA9.;
     padding: 0.5rem;
     color: white;
-    width: 200px;  /* Increase the sidebar width */
+    width: 250px;  /* Increase the sidebar width */
     min-width: 200px; /* Ensure it doesn't shrink too much */
     transition: all 0.3s ease;
 }
