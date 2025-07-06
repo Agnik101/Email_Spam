@@ -11,27 +11,30 @@ import re
 # Set app styling
 st.markdown("""
 <style>
-/* Style for the sidebar */
+/* Style for the sidebar with increased width */
 [data-testid="stSidebar"] {
     background-color: #ff4b4b;
-    padding: 1.2rem;
+    padding: 1.5rem;
     color: white;
+    width: 350px;  /* Increase the sidebar width */
+    min-width: 400px; /* Ensure it doesn't shrink too much */
     transition: all 0.3s ease;
 }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     [data-testid="stSidebar"] {
-        padding: 0.8rem;
+        padding: 1rem;
         font-size: 0.9rem;
+        width: auto;
     }
     .team-member {
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.5rem;
         font-size: 0.85rem;
     }
 }
 
-/* Add smooth transitions when resizing */
+/* App background and font */
 .stApp {
     background: linear-gradient(to bottom, #ffcccb, #ff4b4b);
     font-family: 'Arial', sans-serif;
@@ -55,7 +58,7 @@ st.markdown("""
     margin: 1rem 0;
 }
 
-/* Team member boxes (fix missing semicolon) */
+/* Team member box style */
 .team-member {
     background-color:#FFFFE0;
     padding: 0.8rem;
