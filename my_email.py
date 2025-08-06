@@ -215,7 +215,7 @@ def sidebar_content():
                 Algorithm optimization
                 """)
                 st.markdown("""
-                **Souhardya Nandy**  
+                **Souhardya Nandy1**  
                 *Developer*  
                 App interface
                 """)
